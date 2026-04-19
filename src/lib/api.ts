@@ -1,5 +1,21 @@
 import type { UserContext, ResearchResponse, Publication, ClinicalTrial } from '@/types/research';
-const API_BASE = import.meta.env.VITE_API_URL || 'https://curalink-med.onrender.com/api';
+
+const DEFAULT_API_BASE = 'https://curalink-med.onrender.com/api';
+
+function getApiBase(): string {
+  const configuredApiBase = import.meta.env.VITE_API_URL?.trim();
+  const isLocalBackend =
+    configuredApiBase?.includes('localhost') ||
+    configuredApiBase?.includes('127.0.0.1');
+
+  if (!configuredApiBase || (import.meta.env.PROD && isLocalBackend)) {
+    return DEFAULT_API_BASE;
+  }
+
+  return configuredApiBase.replace(/\/$/, '');
+}
+
+const API_BASE = getApiBase();
 
 export async function sendQuery(
   query: string,
