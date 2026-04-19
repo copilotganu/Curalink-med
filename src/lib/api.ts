@@ -1,5 +1,5 @@
 import type { UserContext, ResearchResponse, Publication, ClinicalTrial } from '@/types/research';
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_BASE = import.meta.env.VITE_API_URL || 'https://curalink-med.onrender.com/api';
 
 export async function sendQuery(
   query: string,
